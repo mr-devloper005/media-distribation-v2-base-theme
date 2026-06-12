@@ -15,14 +15,14 @@ export const visualPresets = {
     mood: 'calm magazine authority',
     fontDirection: 'serif headlines with quiet sans body',
     colors: {
-      background: '#f7efe3',
-      foreground: '#201711',
-      muted: '#7b6253',
-      primary: '#261811',
-      accent: '#b76e45',
-      surface: '#fffaf2',
+      background: '#f7f4ef',
+      foreground: '#111111',
+      muted: '#66615b',
+      primary: '#111111',
+      accent: '#c92f2f',
+      surface: '#ffffff',
     },
-    shape: 'soft editorial cards with fine borders',
+    shape: 'sharp newsroom modules with black rules and red feature bands',
   },
   'luxury-atelier': {
     label: 'Luxury Atelier',
@@ -121,10 +121,10 @@ export const visualSystem = {
           ? 'tech-directory'
           : 'organic-journal',
   radius: {
-    sm: '0.75rem',
-    md: '1.25rem',
-    lg: '2rem',
-    xl: '2.75rem',
+    sm: '0rem',
+    md: '0rem',
+    lg: '0rem',
+    xl: '0rem',
   },
   motion: {
     pageLoad: 'animate-in fade-in slide-in-from-bottom-4 duration-700',
