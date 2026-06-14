@@ -1,24 +1,14 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { Menu, Search, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
 export function EditableNavbar() {
   const [open, setOpen] = useState(false)
-  const pathname = usePathname()
   const { session, logout } = useEditableLocalAuthSession()
-  const navItems = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled).map((task) => ({ label: task.label, href: task.route })), [])
-  const editorialLinks = [
-    ...navItems,
-    { label: 'Latest', href: navItems[0]?.href || '/' },
-    { label: 'Culture', href: '/search?q=culture' },
-    { label: 'Business', href: '/search?q=business' },
-    { label: 'Media', href: '/search?q=media' },
-  ].filter((item, index, array) => array.findIndex((entry) => entry.href === item.href && entry.label === item.label) === index)
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--slot4-surface-bg)] text-black shadow-[0_1px_0_rgba(0,0,0,.18)]">
@@ -27,7 +17,6 @@ export function EditableNavbar() {
           <button type="button" onClick={() => setOpen((value) => !value)} className="inline-flex h-10 w-10 items-center justify-center border border-black/25 lg:hidden" aria-label="Toggle navigation">
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
-          <Link href="/contact" className="hidden text-xs font-black uppercase tracking-[.14em] hover:text-[var(--slot4-accent)] sm:block">Send a tip</Link>
         </div>
 
         <Link href="/" className="editorial-brand max-w-[54vw] truncate text-center text-3xl font-black text-[var(--slot4-accent)] sm:text-5xl">
@@ -50,12 +39,6 @@ export function EditableNavbar() {
       <div className="bg-black text-white">
         <div className="mx-auto flex min-h-[54px] max-w-[1440px] items-center px-4 sm:px-6 lg:px-10">
           <Link href="/" className="mr-6 hidden items-center gap-2 text-xs font-black uppercase tracking-[.16em] lg:flex"><Menu className="h-4 w-4" /> Menu</Link>
-          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
-            {editorialLinks.slice(0, 7).map((item) => {
-              const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(`${item.href}/`))
-              return <Link key={`${item.label}-${item.href}`} href={item.href} className={`px-4 py-4 text-xs font-black uppercase tracking-[.1em] transition hover:bg-[var(--slot4-accent)] ${active ? 'bg-[var(--slot4-accent)]' : ''}`}>{item.label}</Link>
-            })}
-          </nav>
           <form action="/search" className="ml-auto flex min-w-0 flex-1 items-center border-l border-white/20 lg:max-w-[270px] lg:flex-none">
             <Search className="ml-4 h-4 w-4 text-white/65" />
             <input name="q" type="search" placeholder="Search the archive" className="min-w-0 flex-1 bg-transparent px-3 py-4 text-xs font-bold outline-none placeholder:text-white/45" />
@@ -66,7 +49,7 @@ export function EditableNavbar() {
       {open ? (
         <div className="border-t border-black/15 bg-[var(--slot4-surface-bg)] px-4 py-4 lg:hidden">
           <div className="grid gap-px bg-black/15">
-            {[{ label: 'Home', href: '/' }, ...editorialLinks, { label: 'Contact', href: '/contact' }, ...(session ? [{ label: 'Create', href: '/create' }] : [{ label: 'Login', href: '/login' }, { label: 'Sign up', href: '/signup' }])].map((item) => (
+            {[{ label: 'Home', href: '/' }, { label: 'Archive', href: '/search' }, { label: 'Contact', href: '/contact' }, ...(session ? [{ label: 'Create', href: '/create' }] : [{ label: 'Login', href: '/login' }, { label: 'Sign up', href: '/signup' }])].map((item) => (
               <Link key={`${item.label}-${item.href}`} href={item.href} onClick={() => setOpen(false)} className="bg-white px-4 py-3 text-sm font-black uppercase tracking-[.1em]">{item.label}</Link>
             ))}
           </div>

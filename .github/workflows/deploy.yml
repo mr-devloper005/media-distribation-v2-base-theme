@@ -91,6 +91,7 @@ jobs:
             --build-arg NEXT_PUBLIC_SITE_DOMAIN="${NEXT_PUBLIC_SITE_DOMAIN:-}" \
             --build-arg NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-}" \
             --build-arg NEXT_PUBLIC_SITE_OG_IMAGE="${NEXT_PUBLIC_SITE_OG_IMAGE:-}" \
+            --build-arg NEXT_PUBLIC_MEDIA_DISTRIBUTION_ROUTE="${NEXT_PUBLIC_MEDIA_DISTRIBUTION_ROUTE:-}" \
             --build-arg APP_GIT_SHA="$GITHUB_SHA" \
             --build-arg APP_BUILT_AT="$built_at" \
             .
